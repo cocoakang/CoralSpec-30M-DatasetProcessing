@@ -19,9 +19,13 @@ Scripts for mask generation and processing of the CoralSpec-30M coral spectral d
 
 4. Run:
    ```bash
-   sh run.sh
+   bash run.sh
     ```
 
 This will generate coral masks and store the processed results in the processed_data directory of each entry.
 Logs and intermediate results will be stored under $DATASET_PATH/tensorboard_logs.
 
+## Citation
+If you find this dataset or code useful in your research, please cite:
+
+(Citation information will be updated once the data repo is published.)
