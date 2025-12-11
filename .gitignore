@@ -1,3 +1,7 @@
 .DS_Store
 
 figures/*.pptx
+
+__pycache__/
+
+requirements_full.txt

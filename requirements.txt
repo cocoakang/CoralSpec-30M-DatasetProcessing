@@ -1,0 +1,14 @@
+numpy==1.24.4
+opencv-python==4.10.0.84
+
+torch==2.4.1
+torchvision==0.19.1
+torchaudio==2.4.1
+pytorch-ood==0.2.1
+
+tqdm
+tensorboard==2.19.0
+
+scikit-image
+segment-anything @ git+https://github.com/facebookresearch/segment-anything.git@dca509fe793f601edb92606367a655c15ac00fdf
+transformers @ git+https://github.com/huggingface/transformers.git@1d45d90e5d1552eccb6d8cc9b7bba283ccefb808
