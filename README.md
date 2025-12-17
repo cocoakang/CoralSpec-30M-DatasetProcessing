@@ -16,7 +16,7 @@ You can create a new environment and install the dependencies as follows:
 ```
 
 ### Steps
-1. Download the dataset from the CoralSpec-30M data repository. We use DATASET_PATH to denote the path to the parent directory of the dataset.
+1. Download the dataset from the [CoralSpec-30M data repository](https://doi.org/10.25781/KAUST-5481Z). We use DATASET_PATH to denote the path to the parent directory of the dataset.
    The full dataset consists of 1,286 folders, packaged into 26 zip archives (`coralspec_30m_x.zip`, x is a number).  
    You may download only the first zip file for testing or as a small-scale example.
    You may need to grant write permission to all unzipped files: 
@@ -49,4 +49,13 @@ Logs and intermediate results will be stored under $DATASET_PATH/tensorboard_log
 ## Citation
 If you find this dataset or code useful in your research, please cite:
 
-(Citation information will be updated once the data repo is published.)
+```
+@misc{https://doi.org/10.25781/kaust-5481z,
+  doi = {10.25781/KAUST-5481Z},
+  url = {https://repository.kaust.edu.sa/handle/10754/707619},
+  author = {Kang,  Kaizhang and Heidrich,  Wolfgang},
+  title = {CoralSpec-30M},
+  publisher = {KAUST Research Repository},
+  year = {2025}
+}
+```
