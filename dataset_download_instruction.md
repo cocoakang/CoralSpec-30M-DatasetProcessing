@@ -5,6 +5,8 @@ Our dataset is hosted on two sites:
 - [KAUST Library (Official)](https://repository.kaust.edu.sa/items/581bd796-dad1-4b44-9fc1-9d1f584e100f)
 - [Hugging Face (Mirror)](https://huggingface.co/datasets/cocoakang/CoralSpec-30M)
 
+Below we provide download instructions for both sites.
+
 ## Download From KAUST Library
 
 The dataset is hosted on KAUST library and can be downloaded through Globus. Globus is a reliable data transfer service that creates connection between your local machine and the KAUST server.
