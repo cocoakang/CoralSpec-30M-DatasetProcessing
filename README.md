@@ -16,12 +16,17 @@ You can create a new environment and install the dependencies as follows:
 ```
 
 ### Steps
-1. Download the dataset from the [CoralSpec-30M data repository](https://doi.org/10.25781/KAUST-5481Z). We use DATASET_PATH to denote the path to the parent directory of the dataset.
-   The full dataset consists of 1,286 folders, packaged into 26 zip archives (`coralspec_30m_x.zip`, x is a number).  
-   You may download only the first zip file for testing or as a small-scale example.
+1. Download the dataset from the [CoralSpec-30M data repository](https://doi.org/10.25781/KAUST-5481Z). We recommend using [Globus Connect Personal](https://www.globus.org/globus-connect-personal) for downloading the dataset. For users who are unfamiliar with Globus, we provide download instructions [here](). In some network environments, especially when downloading files directly through the web download button, users may encounter an "Internal Server Error", which may be caused by strict firewall settings. We also provide a [mirror site]() on Hugging Face for users who continue to experience access problems with Globus.
+
+  
+After downloading, the full dataset consists of 1,286 folders, packaged into 26 zip archives (`coralspec_30m_x.zip`, x is a number). Users may download only the first zip file for testing or as a small-scale example. We use `DATASET_PATH` to denote the path to the parent directory of the dataset. Please extract all zip archives into `$DATASET_PATH`, for example:
+```bash
+   unzip "*.zip" -d "$DATASET_PATH"
+```
+   
    You may need to grant write permission to all unzipped files: 
 ```
-   chmod -R u+w $DATASET_PATH
+   chmod -R u+w "$DATASET_PATH"
 ```
 
 2. Download the pretrained network models (`network_models.zip`) and extract them.  
