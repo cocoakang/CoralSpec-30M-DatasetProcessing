@@ -6,109 +6,65 @@ Our dataset is hosted on three sites:
 - [Zenodo (Mirror)](https://zenodo.org/records/19561737)
 - [Hugging Face (Mirror)](https://huggingface.co/datasets/cocoakang/CoralSpec-30M)
 
-Below we provide download instructions for all sites.
+Zenodo and Hugging Face support direct download through a web browser. Download speed may vary significantly depending on your location and network conditions. If you encounter download issues or slow transfer speeds on one platform, please try another source.
 
 ## Download From Hugging Face
 
-The dataset is mirrored on Hugging Face. You can download the dataset through Hugging Face's web interface.
-
-Once the Hugging Face dataset page is open, click the "Files and versions" tab, then click the download icon to download the zip files.
+Please navigate to the **Files and versions** tab and click the download icon for the file you would like to download.
 
 ![Hugging Face download](figures/hugging_face.jpg)
 
 ## Download From Zenodo
 
-Please download each file by clicking the "Download" button following the file.
+Please click the **Download** button next to the file you would like to download.
 
 ![Zenodo download](figures/download_zenodo.jpg)
 
 
 ## Download From KAUST Library
 
-The dataset is hosted on KAUST library and can be downloaded through Globus. Globus is a reliable data transfer service that creates connection between your local machine and the KAUST server.
+The original dataset is hosted by the KAUST Library and can be accessed through **Globus**.
 
-#### Step 1: Open the KAUST dataset page and click the Globus download link
+### Option 1: Download through the browser
 
-On the KAUST page, click **Link to Globus download directory**.
+Please open the KAUST dataset page and click **Link to Globus download directory**.
 
-![Step 1 - KAUST dataset page](figures/step_1.jpg)
+![KAUST dataset page](figures/step_1.jpg)
 
-#### Step 2: Log in to Globus
+Please sign in to Globus if prompted. After login, you may download a file directly through the browser.
 
-If it is the first time you open Globus, you will need to sign in. Here we use google account for demonstration. The dataset has been set to public access.
+![Browser download](figures/step_4_download_website.jpg)
 
-![Step 2 - Globus login](figures/step_2_login.jpg)
+Please note that browser download supports only **one file at a time** and may be unreliable for large files or unstable network conditions.
 
-#### Step 3 (through web browser): Download data (1 file at a time)
+If browser download does not work, please use **Globus Connect Personal** instead.
 
-Users can directly download one file through the browser, shown as below. However, this method is not recommended for large files or multiple files.
+### Option 2: Download through Globus Connect Personal
 
-![Step 3 - Download](figures/step_4_download_website.jpg)
+For large files or multiple-file transfer, we recommend using **Globus Connect Personal**.
 
-Sometimes Globus asks for an additional identity check for downloading. Please login use the same account to proceed.
+1. Please download and install Globus Connect Personal from the official website:  
+   [https://www.globus.org/globus-connect-personal](https://www.globus.org/globus-connect-personal)
 
-![Step 3b - Additional login required](figures/step_5_additional_login.jpg)
+2. Please sign in with the same account used in the Globus web interface.
 
-After login, you will be redirected to the file download page. 
+3. Please set up your local collection and keep Globus Connect Personal running.
 
-![Step 3c - File download page](figures/step_6_redirect.jpg)
+![Globus Connect Personal login](figures/step_8_globus_login.jpg)
+![Globus authorization](figures/step_9_globus_login_auth.jpg)
+![Local collection setup](figures/step_10_globus_local_setting.jpg)
 
-**Warning 1**: Sometimes due to network issues, the download may fail and pops up an error message as below. In this case, please use Globus Personal Connect for more reliable transfer.
+4. Please return to the Globus web app, search for your local collection, and open it.
 
-![Step 3d - Download error](figures/internal_server_error.jpg)
+![Find local collection](figures/step_12_globus_web_search.jpg)
+![Select local collection](figures/step_13_globus_my_collection.jpg)
 
-**Warning 2**: This method can only download 1 file at a time. If you check multiple files, then the "Download" button will be disabled. For downloading multiple files, please use Globus Personal Connect.
+5. Please select one or more dataset files and click **Start** to begin the transfer.
 
-![Step 3e - Multiple file download disabled](figures/step_7_double_column.jpg)
+![Start transfer](figures/step_15_select_and_download.jpg)
 
-#### Step 3 (through Globus Personal Connect): Set up Globus Personal Connect
+6. Please open **Activity** to monitor the transfer progress.
 
-Globus Connect Personal is an official client application to establish connection with your machine and KAUST library and transfer data. Please download and install it on your local machine [here](https://www.globus.org/globus-connect-personal). 
+![Activity](figures/step_17_activity.jpg)
 
-After installation, please login to Globus Connect Personal with the same account you used for the web login. 
-
-![Step 3 - Download](figures/step_8_globus_login.jpg)
-![Step 3b - Globus login](figures/step_9_globus_login_auth.jpg)
-
-After login, you will be asked to set up your local collection. Please provide a name for the collection. 
-The default download path is set to home path for the user. You can change it to any folder you want later.  
-
-![Step 3c - Local collection setup](figures/step_10_globus_local_setting.jpg)
-
-When the setup is successful, you should see the following message. Keep Globus Connect Personal running to maintain the connection.
-
-![Step 3d - Setup successful](figures/step_11_globus_set_done.jpg)
-
-
-#### Step 4: Find your local collection in Globus web app
-
-Go back to the Globus web app, open collection search, and find your local collection (for example `my_mac`).
-
-![Step 4 - Double Column view](figures/step_7_double_column.jpg)
-
-![Step 4 - Find my collection](figures/step_12_globus_web_search.jpg)
-
-![Step 4b - Select my collection](figures/step_13_globus_my_collection.jpg)
-
-![Step 4c - Collection details](figures/step_14_setup_local_folder.jpg)
-
-#### Step 5: Select files and start transfer
-
-Select one or more dataset zip files, then click **Start**.
-
-![Step 5 - Select files and start](figures/step_15_select_and_download.jpg)
-
-You should see a transfer request submitted message.
-
-![Step 5b - Transfer submitted](figures/step_16_start_session_successfully.jpg)
-
-#### Step 8: Monitor progress in Activity
-
-Open **Activity** to monitor running tasks.
-
-![Step 8 - Activity list](figures/step_17_activity.jpg)
-
-Click the task to view details and transfer statistics.
-
-![Step 8b - Activity details](figures/step_18_downloading.jpg)
-
+If you encounter issues with the KAUST Library / Globus route, please use the Zenodo or Hugging Face mirror instead.
