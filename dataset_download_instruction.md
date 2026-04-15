@@ -1,11 +1,27 @@
 # Dataset Download Instruction
 
-Our dataset is hosted on two sites:
+Our dataset is hosted on three sites:
 
-- [KAUST Library (Official)](https://repository.kaust.edu.sa/items/581bd796-dad1-4b44-9fc1-9d1f584e100f)
+- [KAUST Library](https://repository.kaust.edu.sa/items/581bd796-dad1-4b44-9fc1-9d1f584e100f)
+- [Zenodo (Mirror)](https://zenodo.org/records/19561737)
 - [Hugging Face (Mirror)](https://huggingface.co/datasets/cocoakang/CoralSpec-30M)
 
-Below we provide download instructions for both sites.
+Below we provide download instructions for all sites.
+
+## Download From Hugging Face
+
+The dataset is mirrored on Hugging Face. You can download the dataset through Hugging Face's web interface.
+
+Once the Hugging Face dataset page is open, click the "Files and versions" tab, then click the download icon to download the zip files.
+
+![Hugging Face download](figures/hugging_face.jpg)
+
+## Download From Zenodo
+
+Please download each file by clicking the "Download" button following the file.
+
+![Zenodo download](figures/download_zenodo.jpg)
+
 
 ## Download From KAUST Library
 
@@ -96,11 +112,3 @@ Click the task to view details and transfer statistics.
 
 ![Step 8b - Activity details](figures/step_18_downloading.jpg)
 
-
-## Download From Hugging Face
-
-The dataset is also mirrored on Hugging Face. You can download the dataset through Hugging Face's web interface.
-
-Once open the Hugging Face dataset page, click the "Files and versions" tab, then click the download icon to download the zip files.
-
-![Hugging Face download](figures/hugging_face.jpg)
