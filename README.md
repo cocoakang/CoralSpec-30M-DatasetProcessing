@@ -1,6 +1,23 @@
 # CoralSpec-30M-DatasetProcessing
 Scripts for mask generation and processing of the CoralSpec-30M coral spectral dataset.
 
+## Updates
+
+**[2026-06]** We added `classifier_evaluation.py` to `run.sh`. This script evaluates the coral health classifier on all annotated entries in the dataset. After running, a new folder `eval_classifier/` is created under `$DATASET_PATH` with the following outputs:
+
+- **Per-entry visualizations** (one `.png` per annotated entry): three side-by-side panels showing the ground-truth labels, the classifier predictions under white illumination, and the predictions under the corresponding lighting condition described in the paper (see [figures/entry_0120_vis.png](figures/entry_0120_vis.png) for an example). Note that background predictions under blue light may appear unstable — the classifier was trained exclusively on white-light data, so blue-illuminated background spectra are out-of-distribution.
+
+<p align="center">
+  <img src="figures/entry_0120_vis.png" width="700">
+</p>
+
+- **Dataset-level statistics**: confusion matrix, per-class precision/recall/F1, and overall accuracy, saved to `$DATASET_PATH/eval_classifier/eval_results.txt` (human-readable) and `$DATASET_PATH/eval_classifier/eval_results.json` (machine-readable).
+
+- **ROC and PR curves** across all annotated pixels (see [figures/roc_pr.png](figures/roc_pr.png) for an example).
+
+<p align="center">
+  <img src="figures/roc_pr.png" width="500">
+</p>
 
 ## Generate Masks with Trained Networks
 

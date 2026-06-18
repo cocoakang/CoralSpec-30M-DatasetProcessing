@@ -12,6 +12,10 @@
 #SBATCH --mem=128G
 #SBATCH --gres=gpu:1
 
-DATASET_PATH=/ibex/project/c2248/coral_spectral_dataset_zips_test/
+DATASET_PATH=/e/project/c2248/coral_spectral_dataset_zips_test/
 
 python generate_coral_mask.py --data_path $DATASET_PATH
+
+python classifier_evaluation.py --data_path $DATASET_PATH
+
+python plot_eval_results.py --data_path $DATASET_PATH
