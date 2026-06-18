@@ -19,6 +19,26 @@ Scripts for mask generation and processing of the CoralSpec-30M coral spectral d
   <img src="figures/roc_pr.png" width="500">
 </p>
 
+**Classifier evaluation results** (white light, 42,531 labeled pixels across 1,286 entries):
+
+Overall accuracy: **0.9586** (40,770 / 42,531 correctly classified pixels)
+
+| Class | Precision | Recall | F1-Score | Support |
+|:------|----------:|-------:|---------:|--------:|
+| healthy | 0.9861 | 0.9856 | 0.9858 | 15,509 |
+| sick | 0.8516 | 0.9811 | 0.9118 | 8,949 |
+| others | 0.9991 | 0.9243 | 0.9602 | 18,073 |
+| macro avg | 0.9456 | 0.9637 | 0.9526 | 42,531 |
+| weighted avg | 0.9633 | 0.9586 | 0.9594 | 42,531 |
+
+Confusion matrix (rows = ground truth, columns = prediction):
+
+| GT \ Pred | healthy | sick | others |
+|:----------|--------:|-----:|-------:|
+| healthy | 15,286 | 223 | 0 |
+| sick | 154 | 8,780 | 15 |
+| others | 62 | 1,307 | 16,704 |
+
 ## Generate Masks with Trained Networks
 
 ### Environment
