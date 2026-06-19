@@ -151,7 +151,7 @@ if __name__ == "__main__":
     TOTOAL_ENTRY_NUM=1286
     entry_folders = sorted([f for f in os.listdir(PUB_DATA_ROOT) if re.match(r"entry_\d{4}", f)])
     if len(entry_folders) < TOTOAL_ENTRY_NUM:
-        print("[WARNING] Evaluation on a subset {}/{}.".format(len(entry_folders,TOTOAL_ENTRY_NUM)))
+        print("[WARNING] Evaluation on a subset {}/{}.".format(len(entry_folders),TOTOAL_ENTRY_NUM))
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
     all_gt, all_conf_white, all_conf_blue = [], [], []
@@ -270,17 +270,35 @@ if __name__ == "__main__":
     print(f"Skipped (not white)   : {skipped_illumination}")
     print(f"Skipped (no labels)   : {skipped_no_labels}")
 
-    report_str = classification_report(
-        all_gt, all_pred_white, labels=[0, 1, 2], target_names=CLASS_NAMES, digits=4,
-    )
-    cm = confusion_matrix(all_gt, all_pred_white, labels=[0, 1, 2])
+    def _report_block(gt, pred, label):
+        n_correct = int(np.sum(pred == gt))
+        acc = n_correct / len(gt)
+        acc_line = f"Overall accuracy: {acc:.4f}  ({n_correct} / {len(gt)} correctly classified pixels)"
+        report_str = classification_report(gt, pred, labels=[0, 1, 2], target_names=CLASS_NAMES, digits=4)
+        report_str = "\n".join(l for l in report_str.splitlines() if not l.strip().startswith("accuracy")) + "\n"
+        cm = confusion_matrix(gt, pred, labels=[0, 1, 2])
+        cm_header = f"{'':>10}  " + "  ".join(f"{n:>8}" for n in CLASS_NAMES)
+        cm_rows = [f"{CLASS_NAMES[i]:>10}  " + "  ".join(f"{v:>8}" for v in row) for i, row in enumerate(cm)]
+        return acc_line, report_str, cm, cm_header, cm_rows
 
-    print("\n=== Classification Report (white light) ===")
-    print(report_str)
-    print("=== Confusion Matrix (rows=GT, cols=Pred) ===")
-    print(f"{'':>10}  " + "  ".join(f"{n:>8}" for n in CLASS_NAMES))
-    for i, row in enumerate(cm):
-        print(f"{CLASS_NAMES[i]:>10}  " + "  ".join(f"{v:>8}" for v in row))
+    acc_white, report_white, cm_white, cm_hdr, cm_rows_white = _report_block(all_gt, all_pred_white, "white")
+    acc_blue,  report_blue,  cm_blue,  _,      cm_rows_blue  = _report_block(all_gt, all_pred_blue,  "blue")
+
+    print(f"\n=== White light ===")
+    print(acc_white)
+    print("\n--- Classification Report ---")
+    print(report_white)
+    print("--- Confusion Matrix (rows=GT, cols=Pred) ---")
+    print(cm_hdr)
+    for row in cm_rows_white: print(row)
+
+    print(f"\n=== Blue light (corresponding lighting condition) ===")
+    print(acc_blue)
+    print("\n--- Classification Report ---")
+    print(report_blue)
+    print("--- Confusion Matrix (rows=GT, cols=Pred) ---")
+    print(cm_hdr)
+    for row in cm_rows_blue: print(row)
 
     #---- save npz
     npz_path = OUTPUT_DIR + "eval_data.npz"
@@ -292,33 +310,51 @@ if __name__ == "__main__":
             pred_blue=all_pred_blue)
     print(f"Saved eval_data.npz → {npz_path}")
 
-    #---- save text/json summary (white light)
+    #---- save text/json summary
     with open(OUTPUT_DIR + "eval_results.txt", "w") as f:
         f.write(f"Total labeled pixels  : {len(all_gt)}\n")
         f.write(f"Skipped (not white)   : {skipped_illumination}\n")
-        f.write(f"Skipped (no labels)   : {skipped_no_labels}\n\n")
-        f.write("=== Classification Report (white light) ===\n" + report_str)
-        f.write("\n=== Confusion Matrix (rows=GT, cols=Pred) ===\n")
-        f.write("           " + "  ".join(f"{n:>8}" for n in CLASS_NAMES) + "\n")
-        for i, row in enumerate(cm):
-            f.write(f"{CLASS_NAMES[i]:>10}  " + "  ".join(f"{v:>8}" for v in row) + "\n")
+        f.write(f"Skipped (no labels)   : {skipped_no_labels}\n")
+        for label, acc_line, report_str, cm, cm_rows in [
+            ("White light",                          acc_white, report_white, cm_white, cm_rows_white),
+            ("Blue light (corresponding condition)", acc_blue,  report_blue,  cm_blue,  cm_rows_blue),
+        ]:
+            f.write(f"\n=== {label} ===\n")
+            f.write(acc_line + "\n\n")
+            f.write("--- Classification Report ---\n" + report_str)
+            f.write("\n--- Confusion Matrix (rows=GT, cols=Pred) ---\n")
+            f.write("           " + "  ".join(f"{n:>8}" for n in CLASS_NAMES) + "\n")
+            for row in cm_rows:
+                f.write(row + "\n")
 
-    precision, recall, f1, support = precision_recall_fscore_support(
+    precision_w, recall_w, f1_w, support_w = precision_recall_fscore_support(
         all_gt, all_pred_white, labels=[0, 1, 2], zero_division=0,
     )
-    results = {
-        "total_pixels": int(len(all_gt)),
-        "overall_accuracy": float(accuracy_score(all_gt, all_pred_white)),
-        "per_class": {
+    precision_b, recall_b, f1_b, _         = precision_recall_fscore_support(
+        all_gt, all_pred_blue,  labels=[0, 1, 2], zero_division=0,
+    )
+    def _per_class_dict(precision, recall, f1, support):
+        return {
             CLASS_NAMES[i]: {
                 "precision": float(precision[i]),
-                "recall": float(recall[i]),
-                "f1": float(f1[i]),
-                "support": int(support[i]),
+                "recall":    float(recall[i]),
+                "f1":        float(f1[i]),
+                "support":   int(support[i]),
             }
             for i in range(3)
+        }
+    results = {
+        "total_pixels": int(len(all_gt)),
+        "white_light": {
+            "overall_accuracy": float(accuracy_score(all_gt, all_pred_white)),
+            "per_class": _per_class_dict(precision_w, recall_w, f1_w, support_w),
+            "confusion_matrix": cm_white.tolist(),
         },
-        "confusion_matrix": cm.tolist(),
+        "blue_light": {
+            "overall_accuracy": float(accuracy_score(all_gt, all_pred_blue)),
+            "per_class": _per_class_dict(precision_b, recall_b, f1_b, support_w),
+            "confusion_matrix": cm_blue.tolist(),
+        },
     }
     with open(OUTPUT_DIR + "eval_results.json", "w") as f:
         json.dump(results, f, indent=2)

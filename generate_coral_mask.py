@@ -58,7 +58,7 @@ if __name__ == "__main__":
     classifier.to(torch_device)
 
     pretrained_model_path = PUB_DATA_ROOT+"network_models/classifier.pth"
-    checkpoint = torch.load(pretrained_model_path, map_location=torch_device,)
+    checkpoint = torch.load(pretrained_model_path, map_location=torch_device,weights_only=False)
 
     classifier.load_state_dict(checkpoint["classifier"])
     classifier.eval()

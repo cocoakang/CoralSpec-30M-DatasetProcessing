@@ -39,6 +39,26 @@ Confusion matrix (rows = ground truth, columns = prediction):
 | sick | 154 | 8,780 | 15 |
 | others | 62 | 1,307 | 16,704 |
 
+**Classifier evaluation results** (blue light, 42,531 labeled pixels across 1,286 entries):
+
+Overall accuracy: **0.9153** (38,928 / 42,531 correctly classified pixels)
+
+| Class | Precision | Recall | F1-Score | Support |
+|:------|----------:|-------:|---------:|--------:|
+| healthy | 0.9793 | 0.9137 | 0.9454 | 15,509 |
+| sick | 0.7322 | 0.9549 | 0.8288 | 8,949 |
+| others | 0.9891 | 0.8971 | 0.9409 | 18,073 |
+| macro avg | 0.9002 | 0.9219 | 0.9050 | 42,531 |
+| weighted avg | 0.9315 | 0.9153 | 0.9189 | 42,531 |
+
+Confusion matrix (rows = ground truth, columns = prediction):
+
+| GT \ Pred | healthy | sick | others |
+|:----------|--------:|-----:|-------:|
+| healthy | 14,170 | 1300 | 39 |
+| sick | 265 | 8,545 | 139 |
+| others | 34 | 1,826 | 16,213 |
+
 ## Generate Masks with Trained Networks
 
 ### Environment
